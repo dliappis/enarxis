@@ -1,0 +1,4 @@
+- name: clone ~/.emacs.d
+  git:
+    repo: https://github.com/dliappis/prelude.git
+    dest: /home/dl/.emacs.d

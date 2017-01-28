@@ -1,0 +1,17 @@
+---
+
+- name: Set up Linux (Fedora) workstation
+# =======================================
+  hosts: localhost
+  become: true
+  gather_facts: true
+
+  tasks:
+  roles:
+    - { role: packages, tags: packages }
+    - { role: emacs, tags: emacs }
+    - { role: vagrant, tags: vagrant, vagrant_version: "1.9.1" }
+    - { role: packer, tags: packer, packer_version: "0.12.2" }
+    - { role: virtualbox, tags: virtualbox }
+    - { role: zoom, tags: zoom }
+    - { role: docker_engine, tags: docker_engine }

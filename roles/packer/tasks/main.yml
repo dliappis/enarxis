@@ -1,0 +1,28 @@
+- name: check if packer is already installed
+  stat: path=/usr/local/bin/packer
+  register: packer_exe_path
+
+- name: retrieve version of installed packer
+  shell: >
+    /usr/local/bin/packer --version
+  register: packer_installed_version
+  changed_when: false
+  failed_when: packer_installed_version.rc != 1
+  when: "{{ packer_exe_path.stat.exists }}"
+
+- block:
+  - name: download packer
+    get_url:
+      url: "{{ packer_downloadurl }}"
+      dest: "/tmp/packer-{{ packer_version }}.zip"
+      checksum: "{{ packer_checksum }}"
+
+  - name: unarchive packer
+    unarchive:
+      src: "/tmp/packer-{{ packer_version }}.zip"
+      dest: /usr/local/bin
+      remote_src: yes
+
+  - name: remove temporary download
+    file: path="/tmp/packer-{{ packer_version }}.zip" state=absent
+  when: "({{ packer_exe_path.stat.exists }} == false) or '{{ packer_version }}' not in '{{ packer_installed_version.stdout | default('0.0') }}'"

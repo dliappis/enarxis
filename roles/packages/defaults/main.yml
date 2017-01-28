@@ -1,0 +1,9 @@
+os_packages:
+  - emacs
+  - git
+  - nc
+  - dstat
+  - mc
+  - gnome-tweak-tool
+  - dconf-editor
+  # - uade123
