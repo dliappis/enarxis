@@ -6,4 +6,4 @@ os_packages:
   - mc
   - gnome-tweak-tool
   - dconf-editor
-  # - uade123
+  - pass
